@@ -1,16 +1,18 @@
 import React from "react";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { FaMosque } from "react-icons/fa";
+import { route } from "../utils/route";
+import { RiLogoutCircleRLine } from "react-icons/ri";
 
-const MainLayout = () => {
+const MainLayout = ({ children }) => {
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col">
         {/* HEADER */}
-        <div className="flex items-center justify-between h-28 lg:hidden">
+        <div className="flex items-center justify-between h-36 lg:hidden">
           <div className="flex items-center gap-3 ml-4">
-            <FaMosque color="#272343" size={25} />
+            <FaMosque color="#272343" size={30} />
             <span className="font-bold text-stroke text-[20px]">Al-IHSAN</span>
           </div>
           <label
@@ -34,27 +36,42 @@ const MainLayout = () => {
         </div>
         {/* MAIN CONTENT */}
         <div className="w-full h-full p-4  lg:py-[70px] lg:px-[59px]">
-          <Outlet />
+          {children}
         </div>
       </div>
       <div className="drawer-side ">
         <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-        <ul className="menu px-8 w-[232px] h-full bg-stroke text-base-content">
-          <div className="flex items-center gap-3">
+        <div className="flex flex-col px-8 w-[232px] py-[79px] h-full bg-stroke text-base-content gap-[103px]">
+          <div className="flex items-center gap-3 justify-center">
             <FaMosque color="white" size={25} />
             <span className="font-bold text-main text-[20px]">Al-IHSAN</span>
           </div>
-          <div>
-            <li className="bg-main">
-              <Link to="/" className="bg-main">
-                Dashboard
-              </Link>
-            </li>
-            <li>
-              <NavLink>Acara</NavLink>
-            </li>
+          <div className="h-full flex flex-col justify-between">
+            <div className="flex flex-col  gap-6">
+              {route.map((item, index) => {
+                return (
+                  <NavLink
+                    key={index}
+                    to={item.path}
+                    activeClassName="active"
+                    className="flex text-white items-center gap-3 py-2 pl-4 rounded-[4px] hover:bg-main hover:text-stroke"
+                  >
+                    {item.icon}
+                    {item.name}
+                  </NavLink>
+                );
+              })}
+            </div>
+            <NavLink
+              to="/nasdf"
+              activeClassName="active"
+              className="flex text-white items-center gap-3 py-2 pl-4 rounded-[4px] hover:bg-main hover:text-stroke"
+            >
+              <RiLogoutCircleRLine size={24} />
+              Logout
+            </NavLink>
           </div>
-        </ul>
+        </div>
       </div>
     </div>
   );
