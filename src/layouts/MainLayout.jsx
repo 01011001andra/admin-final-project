@@ -17,7 +17,7 @@ const MainLayout = ({ children }) => {
           </div>
           <label
             htmlFor="my-drawer-2"
-            className="btn  drawer-button rounded-none lg:hidden bg-main h-full w-32 border-none "
+            className="btn  drawer-button rounded-none lg:hidden bg-main h-full  border-none "
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
