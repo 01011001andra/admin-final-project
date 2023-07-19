@@ -1,0 +1,12 @@
+1. Halaman Home, isinya WELCOME HERO dan general dari main page yg lain
+
+2. Halaman Video Islami/Khotbah, isinya kumpulan video dari youtube yang diembed.
+
+3. Halaman Infaq/sedekah/KAS Masjid, isinya informasi KAS masjid terkini,
+cara infaq melalui online melalui form, data juga akan tampil dan ada tanda "sudah dicek pengurus" dan "belum dicek pengurus".
+
+4. Halaman tentang masjid, tentang masjid dan juga contact menggunakan EMAILJS .
+
+5. Halaman Login & Register ADMIN. 
+
+6. YANG TERAKHIR, Dashboard admin yang menghandle CRUD dari halaman video, infaq, dan contactUS
