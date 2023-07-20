@@ -1,3 +1,5 @@
 import useGetUndangan from "./useGetUndangan";
+import useDeleteUndangan from "./useDeleteUndangan";
+import useUpdateUndangan from "./useUpdateUndangan";
 
-export { useGetUndangan };
+export { useGetUndangan, useDeleteUndangan, useUpdateUndangan };

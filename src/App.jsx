@@ -8,6 +8,9 @@ const Acara = lazy(() => import("./pages/acara"));
 const Ceramah = lazy(() => import("./pages/ceramah"));
 const Keuangan = lazy(() => import("./pages/keuangan"));
 
+// Tambah Form Page
+const TambahUndangan = lazy(() => import("./pages/acara/TambahUndangan"));
+
 const App = () => {
   return (
     <>
@@ -16,6 +19,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/acara" element={<Acara />} />
+            <Route path="/tambahundangan" element={<TambahUndangan />} />
             <Route path="/ceramah" element={<Ceramah />} />
             <Route path="/keuangan" element={<Keuangan />} />
             <Route
