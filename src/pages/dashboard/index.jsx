@@ -17,7 +17,7 @@ const Dashboard = () => {
         />
         <div className="flex overflow-x-auto w-full">
           <div className="overflow-x-auto w-full">
-            <table className="table">
+            <table className="table ">
               {/* head */}
               <thead>
                 <tr>

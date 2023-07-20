@@ -35,9 +35,7 @@ const MainLayout = ({ children }) => {
           </label>
         </div>
         {/* MAIN CONTENT */}
-        <div className="w-full h-full p-4  lg:py-[70px] lg:px-[59px]">
-          {children}
-        </div>
+        <div className="p-4 lg:py-[70px] lg:px-[59px]">{children}</div>
       </div>
       <div className="drawer-side ">
         <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
