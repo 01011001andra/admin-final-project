@@ -19,7 +19,7 @@ const Table = ({ getData = [], isError, error, deleteMut, updateMut }) => {
   } = useForm();
 
   const cancelBtnRef = useRef(null);
-  let dataUndangan = getData.data[0];
+  let dataUndangan = getData?.data[0];
 
   function handleUpdateData() {
     setValue("tanggal", formatUnixToTanggal(dataUndangan?.tanggal));
