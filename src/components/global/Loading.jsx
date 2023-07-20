@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const Loading = () => {
+const Loading = ({ loadingName }) => {
   const [dotCount, setDotCount] = useState(3);
 
   useEffect(() => {
@@ -25,7 +25,9 @@ const Loading = () => {
 
   return (
     <div className="flex flex-col h-full w-full items-center justify-center gap-3">
-      <span className="text-3xl font-bold w-full text-center">Loading...</span>
+      <span className="text-3xl font-bold w-full text-center">
+        Loading {loadingName}...
+      </span>
       <div>{renderDots()}</div>
     </div>
   );

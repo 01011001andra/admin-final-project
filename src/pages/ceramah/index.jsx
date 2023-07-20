@@ -1,10 +1,11 @@
 import React from "react";
+import { Layout } from "../../layouts";
 
 const Ceramah = () => {
   return (
-    <div>
-      <h1>CERAMAH</h1>
-    </div>
+    <Layout title="Ceramah">
+      <h1>hi</h1>
+    </Layout>
   );
 };
 

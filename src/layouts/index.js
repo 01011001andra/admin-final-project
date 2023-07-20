@@ -1,3 +1,5 @@
 import MainLayout from "./MainLayout";
+import Layout from "./Layout";
+import TableSection from "./TableSection";
 
-export { MainLayout };
+export { MainLayout, Layout, TableSection };
