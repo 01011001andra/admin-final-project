@@ -5,7 +5,7 @@ export const postUndangan = (body) => {
 };
 
 export const getUndangan = () => {
-  return client.get(``);
+  return client.get(`/undangan`);
 };
 
 export const deleteUndangan = (id) => {
