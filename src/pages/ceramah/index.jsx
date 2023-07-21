@@ -1,4 +1,5 @@
 import React from "react";
+import { Loading } from "../../components";
 import { Layout } from "../../layouts";
 import {
   useDeleteCeramah,
@@ -19,11 +20,17 @@ const Ceramah = () => {
 
   return (
     <Layout title="Ceramah">
-      <TabelCeramah
-        getData={ceramahData}
-        updateMut={updateCeramahMut}
-        deleteMut={deleteCeramahMut}
-      />
+      {ceramahIsLoad ? (
+        <Loading loadingName="Tabel Ceramah" />
+      ) : (
+        <TabelCeramah
+          getData={ceramahData}
+          error={ceramahErr}
+          isError={ceramahIsErr}
+          updateMut={updateCeramahMut}
+          deleteMut={deleteCeramahMut}
+        />
+      )}
     </Layout>
   );
 };
