@@ -1,29 +1,43 @@
-import { client } from "./helper";
+import { ceramahClient, undanganClient } from "./helper";
+
+// ceramah
+export const postCeramah = (body) => {
+  return ceramahClient.post("/ceramah", body);
+};
+export const getCeramah = () => {
+  return ceramahClient.get("/ceramah");
+};
+export const updateCeramah = (body) => {
+  return ceramahClient.put(`/ceramah/${body.id}`, body);
+};
+export const deleteCeramah = (id) => {
+  return ceramahClient.delete(`/ceramah/${id}`);
+};
 
 // undangan
 export const postUndangan = (body) => {
-  return client.post("/undangan", body);
+  return undanganClient.post("/undangan", body);
 };
 export const getUndangan = () => {
-  return client.get(`/undangan`);
+  return undanganClient.get(`/undangan`);
 };
 export const deleteUndangan = (id) => {
-  return client.delete(`/undangan/${id}`);
+  return undanganClient.delete(`/undangan/${id}`);
 };
 export const updateUndangan = (body) => {
-  return client.put(`/undangan/${body.id}`, body);
+  return undanganClient.put(`/undangan/${body.id}`, body);
 };
 
 // dokumentasi Acara
 export const postDokumentasi = (body) => {
-  return client.post("/dokumentasi_acara", body);
+  return undanganClient.post("/dokumentasi_acara", body);
 };
 export const getDokumentasi = () => {
-  return client.get(`/dokumentasi_acara`);
+  return undanganClient.get(`/dokumentasi_acara`);
 };
 export const deleteDokumentasi = (id) => {
-  return client.delete(`/dokumentasi_acara/${id}`);
+  return undanganClient.delete(`/dokumentasi_acara/${id}`);
 };
 export const updateDokumentasi = (body) => {
-  return client.put(`/dokumentasi_acara/${body.id}`, body);
+  return undanganClient.put(`/dokumentasi_acara/${body.id}`, body);
 };

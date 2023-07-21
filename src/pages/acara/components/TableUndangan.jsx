@@ -22,7 +22,7 @@ const Table = (props) => {
   const cancelBtnRef = useRef(null);
 
   let dataUndangan =
-    getData?.data && getData.data.length > 0 ? getData.data[0] : null;
+    getData?.data && getData?.data?.length > 0 ? getData.data[0] : null;
 
 
   function handleUpdateData() {
@@ -184,7 +184,7 @@ const Table = (props) => {
           <h1 className="text-[18px] font-semibold">Undangan</h1>
           <span>Ini adalah undangan</span>
         </div>
-        {getData.data.length == 0 && (
+        {getData?.data?.length == 0 && (
           <div className="flex flex-col gap-2 lg:flex-row lg:gap-4 ">
             <Link className="btn bg-highlight text-stroke" to="/tambahundangan">
               Tambah Data
@@ -221,7 +221,7 @@ const Table = (props) => {
               <span class="inline-block w-1/3 md:hidden font-bold">
                 Tanggal
               </span>
-              {!getData.data.length == 0 &&
+              {!getData?.data?.length == 0 &&
                 formatTanggal(dataUndangan?.tanggal)}
             </td>
             <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
@@ -247,7 +247,7 @@ const Table = (props) => {
             <td class="p-2 md:border md:border-grey-500 text-left  md:table-cell flex">
               <span class="inline-block w-1/3 md:hidden font-bold">AKSI</span>
               <div className="flex gap-2">
-                {!getData.data.length == 0 && (
+                {!getData?.data?.length == 0 && (
                   <>
                     <a
                       href="#my_modal_8"
