@@ -2,13 +2,11 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { ErrorMessage } from "@hookform/error-message";
-import { formatTanggalToUnix } from "../../utils/helper";
-import { usePostUndangan } from "../../lib";
-import { useQueryClient } from "@tanstack/react-query";
+import { formatTanggalToUnix, randomImage } from "../../utils/helper";
+import { usePostDokumentasi } from "../../lib";
 
 const TambahUndangan = () => {
-  const queryClient = useQueryClient();
-  const postMut = usePostUndangan();
+  const postMut = usePostDokumentasi();
   const navigate = useNavigate();
   const {
     register,
@@ -17,16 +15,16 @@ const TambahUndangan = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (data) => {
+  const onSubmit = (data) => {
     const body = {
+      gambar: randomImage(),
       tanggal: formatTanggalToUnix(data.tanggal),
       waktu: data.waktu,
       tempat: data.tempat,
       jenis_acara: data.jenis_acara,
-      undangan_pdf: data.undangan_pdf,
+      deskripsi: data.deskripsi,
     };
     postMut.mutate(body);
-    await queryClient.invalidateQueries({ queryKey: ["dokumentasi"] });
     navigate("/acara");
   };
   return (
@@ -35,6 +33,23 @@ const TambahUndangan = () => {
         Tambah Data
       </h1>
       <form className="flex flex-col gap-5" onSubmit={handleSubmit(onSubmit)}>
+        <div className="flex flex-col gap-2">
+          <label htmlFor="gambar">Gambar</label>
+          <input
+            id="gambar"
+            placeholder="Type here"
+            type="file"
+            className="w-full file-input file-input-bordered"
+            {...register("gambar", { required: true })}
+          />
+          <ErrorMessage
+            errors={errors}
+            name="gambar"
+            render={({ message }) => (
+              <p className="text-red-600">gambar boleh kosong</p>
+            )}
+          />
+        </div>
         <div className="flex flex-col gap-2">
           <label htmlFor="tanggal">Tanggal</label>
           <input
@@ -104,24 +119,23 @@ const TambahUndangan = () => {
           />
         </div>
         <div className="flex flex-col gap-2">
-          <label htmlFor="undangan_pdf">Undangan PDF</label>
+          <label htmlFor="deskripsi">Deskripsi</label>
           <input
             type="text"
-            id="undangan_pdf"
+            id="deskripsi"
             placeholder="Type here"
             className="w-full input input-bordered "
-            {...register("undangan_pdf", {
-              required: true,
-            })}
+            {...register("deskripsi", { required: true })}
           />
           <ErrorMessage
             errors={errors}
-            name="undangan_pdf"
+            name="deskripsi"
             render={({ message }) => (
-              <p className="text-red-600">Undangan PDF tidak boleh kosong</p>
+              <p className="text-red-600">Deskripsi tidak boleh kosong</p>
             )}
           />
         </div>
+
         <div className="modal-action">
           <button
             type="submit"

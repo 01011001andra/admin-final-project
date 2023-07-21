@@ -2,4 +2,8 @@
 problem: saat melakukan code spliting menggunakan outlet, tidak bisa.
 solving: bisa di solve langsung hit component layout untuk code spliting
 
-2. kendala dalam overflow x
+2. 
+kendala dalam overflow x pada tabel daisyui
+solving: mengganti tabel
+
+3.
