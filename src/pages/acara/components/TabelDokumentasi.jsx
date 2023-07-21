@@ -37,12 +37,12 @@ const TabelDokumentasi = (props) => {
   };
   return (
     <>
-      <div className="flex justify-between lg:flex-row lg:gap-4">
+      <div className="flex flex-col justify-between gap-2 lg:flex-row lg:gap-4">
         <div className="flex flex-col gap-2">
           <h1 className="text-[18px] font-semibold">Dokumentasi Acara</h1>
           <span>Ini adalah Dokumentasi acara</span>
         </div>
-        <div className="flex gap-2 lg:gap-4">
+        <div className="flex flex-col gap-2 lg:flex-row lg:gap-4">
           <input
             type="text"
             placeholder="Cari Jenis Acara"
