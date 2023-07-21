@@ -2,6 +2,7 @@ import { ErrorMessage } from "@hookform/error-message";
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { Error } from "../../../components";
 import {
   formatTanggal,
   formatTanggalToUnix,
@@ -61,13 +62,13 @@ const TabelDokumentasi = (props) => {
   function handleCancelClick() {
     cancelBtnRef.current.click();
   }
-  const filteredData = getData?.data.filter((item) =>
+  const filteredData = getData?.data?.filter((item) =>
     item.jenis_acara.toLowerCase().includes(searchQuery.toLowerCase())
   );
   // Reverse the filteredData array to display from the end
-  const reversedData = filteredData.slice().reverse();
-  const totalPages = Math.ceil(reversedData.length / itemsPerPage);
-  const currentData = reversedData.slice(
+  const reversedData = filteredData?.slice().reverse();
+  const totalPages = Math.ceil(reversedData?.length / itemsPerPage);
+  const currentData = reversedData?.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -76,6 +77,10 @@ const TabelDokumentasi = (props) => {
   const calculateStartNumber = () => {
     return (currentPage - 1) * itemsPerPage + 1;
   };
+
+  if (isError) {
+    return <Error message={error.message} />;
+  }
   return (
     <>
       {/* FORM UPDATE */}
