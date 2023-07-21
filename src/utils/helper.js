@@ -12,6 +12,10 @@ export const undanganClient = axios.create({
 export const ceramahClient = axios.create({
   baseURL: import.meta.env.VITE_CERAMAH_API,
 });
+// keuangan
+export const keuanganClient = axios.create({
+  baseURL: import.meta.env.VITE_KEUANGAN_API,
+});
 
 export const formatTanggal = (tanggal) => {
   return moment.unix(tanggal).format("DD MMM YYYY");

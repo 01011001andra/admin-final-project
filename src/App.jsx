@@ -12,6 +12,8 @@ const Keuangan = lazy(() => import("./pages/keuangan"));
 const TambahUndangan = lazy(() => import("./pages/acara/TambahUndangan"));
 const TambahDokumentasi = lazy(() => import("./pages/acara/TambahDokumentasi"));
 const TambahCeramah = lazy(() => import("./pages/ceramah/TambahCeramah"));
+const TambahKas = lazy(() => import("./pages/keuangan/TambahKas"));
+const TambahInfak = lazy(() => import("./pages/keuangan/TambahInfak"));
 
 const App = () => {
   return (
@@ -26,6 +28,8 @@ const App = () => {
             <Route path="/ceramah" element={<Ceramah />} />
             <Route path="/tambahceramah" element={<TambahCeramah />} />
             <Route path="/keuangan" element={<Keuangan />} />
+            <Route path="/tambahkas" element={<TambahKas />} />
+            <Route path="/tambahinfak" element={<TambahInfak />} />
             <Route
               path="*"
               element={

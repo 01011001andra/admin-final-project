@@ -9,7 +9,7 @@ import {
 } from "../../../utils/helper";
 
 const TabelCeramah = (props) => {
-  const { getData = [], isError, error, deleteMut, updateMut } = props;
+  const { getData = [], deleteMut, updateMut, isError, error } = props;
   const cancelBtnRef = useRef(null);
 
   const {
@@ -74,7 +74,9 @@ const TabelCeramah = (props) => {
   const calculateStartNumber = () => {
     return (currentPage - 1) * itemsPerPage + 1;
   };
-
+  if (isError) {
+    return <Error message={error.message} />;
+  }
   return (
     <>
       {/* FORM UPDATE */}

@@ -1,14 +1,34 @@
 import React from "react";
 import { Layout } from "../../layouts";
+import { useDeleteInfak, useGetInfak, useUpdateInfak } from "../../lib/infak";
+import { useDeleteKas, useGetKas, useUpdateKas } from "../../lib/kas";
 
 const Keuangan = () => {
+  const {
+    data: infakData,
+    isError: infakIsErr,
+    error: infakErr,
+    isLoading: infakIsLoad,
+  } = useGetInfak();
+  // console.log(infakData, infakIsErr, infakErr, infakIsLoad);
+  const updateInfakMut = useUpdateInfak();
+  const deleteInfakMut = useDeleteInfak();
+  const {
+    data: kasData,
+    isError: kasIsErr,
+    error: kasErr,
+    isLoading: kasIsLoad,
+  } = useGetKas();
+  // console.log(kasData, kasIsErr, kasErr, kasIsLoad);
+  const updateKasMut = useUpdateKas();
+  const deleteKasMut = useDeleteKas();
   return (
     <Layout title="Keuangan & Infak">
-      <div className="lg:flex-row flex flex-col gap-2 lg:gap-4 ">
+      <div className="flex flex-col gap-2 lg:flex-row lg:gap-4 ">
         <input
           type="text"
           placeholder="Cari disini"
-          className="input input-bordered w-full  lg:max-w-xs"
+          className="w-full input input-bordered lg:max-w-xs"
         />
         <button className="btn bg-highlight ">Tambah Data</button>
       </div>

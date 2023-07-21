@@ -1,4 +1,32 @@
-import { ceramahClient, undanganClient } from "./helper";
+import { ceramahClient, keuanganClient, undanganClient } from "./helper";
+
+// kas
+export const getKas = () => {
+  return keuanganClient.get("/kas");
+};
+export const postKas = (body) => {
+  return keuanganClient.post("/kas", body);
+};
+export const updateKas = (body) => {
+  return keuanganClient.put(`/kas/${body.id}`, body);
+};
+export const deleteKas = (id) => {
+  return keuanganClient.delete(`/kas/${id}`);
+};
+
+// infak
+export const getInfak = () => {
+  return keuanganClient.get("/layanan-infak");
+};
+export const postInfak = (body) => {
+  return keuanganClient.post("/layanan-infak", body);
+};
+export const updateInfak = (body) => {
+  return keuanganClient.put(`/layanan-infak/${body.id}`, body);
+};
+export const deleteInfak = (id) => {
+  return keuanganClient.delete(`/layanan-infak/${id}`);
+};
 
 // ceramah
 export const postCeramah = (body) => {
