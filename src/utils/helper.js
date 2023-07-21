@@ -4,8 +4,13 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { faker } from "@faker-js/faker";
 
-export const client = axios.create({
+// undangan
+export const undanganClient = axios.create({
   baseURL: import.meta.env.VITE_UNDANGAN_API,
+});
+// ceramah
+export const ceramahClient = axios.create({
+  baseURL: import.meta.env.VITE_CERAMAH_API,
 });
 
 export const formatTanggal = (tanggal) => {
