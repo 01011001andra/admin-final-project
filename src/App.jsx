@@ -10,6 +10,7 @@ const Keuangan = lazy(() => import("./pages/keuangan"));
 
 // Tambah Form Page
 const TambahUndangan = lazy(() => import("./pages/acara/TambahUndangan"));
+const TambahDokumentasi = lazy(() => import("./pages/acara/TambahDokumentasi"));
 
 const App = () => {
   return (
@@ -20,12 +21,13 @@ const App = () => {
             <Route path="/" element={<Dashboard />} />
             <Route path="/acara" element={<Acara />} />
             <Route path="/tambahundangan" element={<TambahUndangan />} />
+            <Route path="/tambahdokumentasi" element={<TambahDokumentasi />} />
             <Route path="/ceramah" element={<Ceramah />} />
             <Route path="/keuangan" element={<Keuangan />} />
             <Route
               path="*"
               element={
-                <div className="w-full h-full flex items-center justify-center">
+                <div className="flex items-center justify-center w-full h-full">
                   <h1 className="text-4xl font-bold">NotFound</h1>
                 </div>
               }

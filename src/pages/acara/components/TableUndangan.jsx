@@ -9,7 +9,8 @@ import {
   formatUnixToTanggal,
 } from "../../../utils/helper";
 
-const Table = ({ getData = [], isError, error, deleteMut, updateMut }) => {
+const Table = (props) => {
+  const { getData = [], isError, error, deleteMut, updateMut } = props;
   const {
     register,
     handleSubmit,
@@ -54,12 +55,13 @@ const Table = ({ getData = [], isError, error, deleteMut, updateMut }) => {
   }
   return (
     <>
+      {/* FORM UPDATE */}
       <div
-        className="modal lg:px-0 flex items-center w-full justify-center px-2"
+        className="flex items-center justify-center w-full px-2 modal lg:px-0"
         id="my_modal_8"
       >
-        <div className="modal-box w-full flex flex-col gap-4 ">
-          <h3 className="font-bold text-lg">UPDATE UNDANGAN</h3>
+        <div className="flex flex-col w-full gap-4 modal-box ">
+          <h3 className="text-lg font-bold">UPDATE UNDANGAN</h3>
           <form
             onSubmit={handleSubmit(handleUpdate)}
             className="flex flex-col gap-4 "
@@ -70,7 +72,7 @@ const Table = ({ getData = [], isError, error, deleteMut, updateMut }) => {
                 type="date"
                 id="tanggal"
                 placeholder="Type here"
-                className="input input-bordered w-full "
+                className="w-full input input-bordered "
                 {...register("tanggal", { required: true })}
               />
               <ErrorMessage
@@ -87,7 +89,7 @@ const Table = ({ getData = [], isError, error, deleteMut, updateMut }) => {
                 type="text"
                 id="waktu"
                 placeholder="Type here"
-                className="input input-bordered w-full "
+                className="w-full input input-bordered "
                 {...register("waktu", { required: true })}
               />
               <ErrorMessage
@@ -104,7 +106,7 @@ const Table = ({ getData = [], isError, error, deleteMut, updateMut }) => {
                 type="text"
                 id="tempat"
                 placeholder="Type here"
-                className="input input-bordered w-full "
+                className="w-full input input-bordered "
                 {...register("tempat", { required: true })}
               />
               <ErrorMessage
@@ -121,7 +123,7 @@ const Table = ({ getData = [], isError, error, deleteMut, updateMut }) => {
                 type="text"
                 id="jenis_acara"
                 placeholder="Type here"
-                className="input input-bordered w-full "
+                className="w-full input input-bordered "
                 {...register("jenis_acara", { required: true })}
               />
               <ErrorMessage
@@ -138,7 +140,7 @@ const Table = ({ getData = [], isError, error, deleteMut, updateMut }) => {
                 type="text"
                 id="undangan_pdf"
                 placeholder="Type here"
-                className="input input-bordered w-full "
+                className="w-full input input-bordered "
                 {...register("undangan_pdf", {
                   required: true,
                 })}
@@ -173,13 +175,14 @@ const Table = ({ getData = [], isError, error, deleteMut, updateMut }) => {
           </form>
         </div>
       </div>
-      <div className="lg:flex-row flex flex-col w-full justify-between gap-4">
+      {/* TABEL UNDANGAN */}
+      <div className="flex flex-col justify-between w-full gap-4 lg:flex-row">
         <div className="flex flex-col gap-2">
           <h1 className="text-[18px] font-semibold">Undangan</h1>
           <span>Ini adalah undangan</span>
         </div>
         {getData.data.length == 0 && (
-          <div className="lg:flex-row flex flex-col gap-2 lg:gap-4 ">
+          <div className="flex flex-col gap-2 lg:flex-row lg:gap-4 ">
             <Link className="btn bg-highlight text-stroke" to="/tambahundangan">
               Tambah Data
             </Link>
@@ -245,13 +248,13 @@ const Table = ({ getData = [], isError, error, deleteMut, updateMut }) => {
                   <>
                     <a
                       href="#my_modal_8"
-                      className="btn btn-success hover:bg-success/70 text-white"
+                      className="text-white btn btn-success hover:bg-success/70"
                       onClick={handleUpdateData}
                     >
                       Edit
                     </a>
                     <button
-                      className="btn btn-error text-white hover:bg-error/70"
+                      className="text-white btn btn-error hover:bg-error/70"
                       onClick={() => {
                         let validate = window.confirm("are you sure?");
                         if (validate) {
