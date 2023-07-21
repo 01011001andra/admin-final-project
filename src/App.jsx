@@ -11,6 +11,7 @@ const Keuangan = lazy(() => import("./pages/keuangan"));
 // Tambah Form Page
 const TambahUndangan = lazy(() => import("./pages/acara/TambahUndangan"));
 const TambahDokumentasi = lazy(() => import("./pages/acara/TambahDokumentasi"));
+const TambahCeramah = lazy(() => import("./pages/ceramah/TambahCeramah"));
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
             <Route path="/tambahundangan" element={<TambahUndangan />} />
             <Route path="/tambahdokumentasi" element={<TambahDokumentasi />} />
             <Route path="/ceramah" element={<Ceramah />} />
+            <Route path="/tambahceramah" element={<TambahCeramah />} />
             <Route path="/keuangan" element={<Keuangan />} />
             <Route
               path="*"
