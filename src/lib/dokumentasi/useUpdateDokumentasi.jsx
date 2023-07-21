@@ -9,10 +9,7 @@ const useUpdateDokumentasi = () => {
       await updateDokumentasi(body, body.id);
     },
     onSuccess: (data) => {
-      successNotify(
-        `Data ${data?.data?.jenis_acara} berhasil ditambahkan!`,
-        data?.data?.id
-      );
+      successNotify(`Data berhasil diupdate!`, data?.data?.id);
       queryClient.invalidateQueries({ queryKey: ["dokumentasi"] });
     },
   });

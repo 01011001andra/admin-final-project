@@ -1,13 +1,52 @@
-import { useState } from "react";
+import { ErrorMessage } from "@hookform/error-message";
+import { useRef, useState } from "react";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { formatTanggal } from "../../../utils/helper";
+import { Error } from "../../../components";
+import {
+  formatTanggal,
+  formatTanggalToUnix,
+  formatUnixToTanggal,
+  randomImage,
+} from "../../../utils/helper";
 
 const TabelDokumentasi = (props) => {
   const { getData = [], isError, error, deleteMut, updateMut } = props;
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm();
+  const cancelBtnRef = useRef(null);
+  const [id, setId] = useState(0);
 
   const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
+
+  function handleUpdateData(body) {
+    setValue("tanggal", formatUnixToTanggal(body.tanggal));
+    setValue("waktu", body.waktu);
+    setValue("tempat", body.tempat);
+    setValue("jenis_acara", body.jenis_acara);
+    setValue("deskripsi", body.deskripsi);
+    setId(body.id);
+  }
+
+  function handleUpdate() {
+    const body = {
+      id: id,
+      gambar: randomImage(),
+      tanggal: formatTanggalToUnix(watch("tanggal")),
+      waktu: watch("waktu"),
+      tempat: watch("tempat"),
+      jenis_acara: watch("jenis_acara"),
+      deskripsi: watch("deskripsi"),
+    };
+    updateMut.mutate(body);
+  }
 
   function handleDelete(id) {
     let validate = window.confirm("are you sure?");
@@ -20,13 +59,16 @@ const TabelDokumentasi = (props) => {
     setSearchQuery(event.target.value);
     setCurrentPage(1);
   };
-  const filteredData = getData?.data.filter((item) =>
+  function handleCancelClick() {
+    cancelBtnRef.current.click();
+  }
+  const filteredData = getData?.data?.filter((item) =>
     item.jenis_acara.toLowerCase().includes(searchQuery.toLowerCase())
   );
   // Reverse the filteredData array to display from the end
-  const reversedData = filteredData.slice().reverse();
-  const totalPages = Math.ceil(reversedData.length / itemsPerPage);
-  const currentData = reversedData.slice(
+  const reversedData = filteredData?.slice().reverse();
+  const totalPages = Math.ceil(reversedData?.length / itemsPerPage);
+  const currentData = reversedData?.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -35,8 +77,148 @@ const TabelDokumentasi = (props) => {
   const calculateStartNumber = () => {
     return (currentPage - 1) * itemsPerPage + 1;
   };
+
+  if (isError) {
+    return <Error message={error.message} />;
+  }
   return (
     <>
+      {/* FORM UPDATE */}
+      <div
+        className="flex items-center justify-center w-full px-2 modal lg:px-0"
+        id="my_modal_9"
+      >
+        <div className="flex flex-col w-full gap-4 modal-box ">
+          <h3 className="text-lg font-bold">UPDATE DOKUMENTASI</h3>
+          <form
+            className="flex flex-col gap-5"
+            onSubmit={handleSubmit(handleUpdate)}
+          >
+            <div className="flex flex-col gap-2">
+              <label htmlFor="gambar">Gambar</label>
+              <input
+                id="gambar"
+                placeholder="Type here"
+                type="file"
+                className="w-full file-input file-input-bordered"
+                {...register("gambar", { required: true })}
+              />
+              <ErrorMessage
+                errors={errors}
+                name="gambar"
+                render={({ message }) => (
+                  <p className="text-red-600">gambar boleh kosong</p>
+                )}
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <label htmlFor="tanggal">Tanggal</label>
+              <input
+                type="date"
+                id="tanggal"
+                placeholder="Type here"
+                className="w-full input input-bordered "
+                {...register("tanggal", { required: true })}
+              />
+              <ErrorMessage
+                errors={errors}
+                name="tanggal"
+                render={({ message }) => (
+                  <p className="text-red-600">tanggal boleh kosong</p>
+                )}
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <label htmlFor="waktu">Waktu</label>
+              <input
+                type="text"
+                id="waktu"
+                placeholder="Type here"
+                className="w-full input input-bordered "
+                {...register("waktu", { required: true })}
+              />
+              <ErrorMessage
+                errors={errors}
+                name="waktu"
+                render={({ message }) => (
+                  <p className="text-red-600">Waktu boleh kosong</p>
+                )}
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <label htmlFor="tempat">Tempat</label>
+              <input
+                type="text"
+                id="tempat"
+                placeholder="Type here"
+                className="w-full input input-bordered "
+                {...register("tempat", { required: true })}
+              />
+              <ErrorMessage
+                errors={errors}
+                name="tempat"
+                render={({ message }) => (
+                  <p className="text-red-600">tempat boleh kosong</p>
+                )}
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <label htmlFor="jenis_acara">Jenis Acara</label>
+              <input
+                type="text"
+                id="jenis_acara"
+                placeholder="Type here"
+                className="w-full input input-bordered "
+                {...register("jenis_acara", { required: true })}
+              />
+              <ErrorMessage
+                errors={errors}
+                name="jenis_acara"
+                render={({ message }) => (
+                  <p className="text-red-600">Jenis Acara tidak boleh kosong</p>
+                )}
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <label htmlFor="deskripsi">Deskripsi</label>
+              <input
+                type="text"
+                id="deskripsi"
+                placeholder="Type here"
+                className="w-full input input-bordered "
+                {...register("deskripsi", { required: true })}
+              />
+              <ErrorMessage
+                errors={errors}
+                name="deskripsi"
+                render={({ message }) => (
+                  <p className="text-red-600">Deskripsi tidak boleh kosong</p>
+                )}
+              />
+            </div>
+
+            <div className="modal-action">
+              <button
+                type="submit"
+                className="btn btn-success text-main hover:bg-success/70"
+                onClick={() => {
+                  handleCancelClick();
+                }}
+              >
+                SUBMIT
+              </button>
+              <a
+                href="#"
+                className="btn btn-error text-main hover:bg-error/70"
+                ref={cancelBtnRef}
+              >
+                KEMBALI
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+      {/* TABEL DOKUMENTASI */}
       <div className="flex flex-col justify-between gap-2 lg:flex-row lg:gap-4">
         <div className="flex flex-col gap-2">
           <h1 className="text-[18px] font-semibold">Dokumentasi Acara</h1>
@@ -149,8 +331,11 @@ const TabelDokumentasi = (props) => {
                   </span>
                   <div className="flex gap-2">
                     <a
-                      href="#my_modal_8"
+                      href="#my_modal_9"
                       className="text-white btn btn-success hover:bg-success/70"
+                      onClick={() => {
+                        handleUpdateData(item);
+                      }}
                     >
                       Edit
                     </a>

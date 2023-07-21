@@ -20,7 +20,8 @@ const Table = (props) => {
   } = useForm();
 
   const cancelBtnRef = useRef(null);
-  let dataUndangan = getData?.data[0];
+  let dataUndangan =
+    getData?.data && getData.data.length > 0 ? getData.data[0] : null;
 
   function handleUpdateData() {
     setValue("tanggal", formatUnixToTanggal(dataUndangan?.tanggal));
