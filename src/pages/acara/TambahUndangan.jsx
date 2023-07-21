@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { ErrorMessage } from "@hookform/error-message";
 import usePostUndangan from "../../lib/undangan/usePostUndangan";
+import { formatTanggalToUnix } from "../../utils/helper";
 
 const TambahUndangan = () => {
   const postMut = usePostUndangan();
@@ -15,12 +16,19 @@ const TambahUndangan = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    postMut.mutate(data);
+    const body = {
+      tanggal: formatTanggalToUnix(data.tanggal),
+      waktu: data.waktu,
+      tempat: data.tempat,
+      jenis_acara: data.jenis_acara,
+      undangan_pdf: data.undangan_pdf,
+    };
+    postMut.mutate(body);
     navigate("/acara");
   };
   return (
     <div className="flex flex-col gap-10">
-      <h1 className="font-bold text-3xl text-center lg:text-start">
+      <h1 className="text-3xl font-bold text-center lg:text-start">
         Tambah Data
       </h1>
       <form className="flex flex-col gap-5" onSubmit={handleSubmit(onSubmit)}>
@@ -30,7 +38,7 @@ const TambahUndangan = () => {
             type="date"
             id="tanggal"
             placeholder="Type here"
-            className="input input-bordered w-full "
+            className="w-full input input-bordered "
             {...register("tanggal", { required: true })}
           />
           <ErrorMessage
@@ -47,7 +55,7 @@ const TambahUndangan = () => {
             type="text"
             id="waktu"
             placeholder="Type here"
-            className="input input-bordered w-full "
+            className="w-full input input-bordered "
             {...register("waktu", { required: true })}
           />
           <ErrorMessage
@@ -64,7 +72,7 @@ const TambahUndangan = () => {
             type="text"
             id="tempat"
             placeholder="Type here"
-            className="input input-bordered w-full "
+            className="w-full input input-bordered "
             {...register("tempat", { required: true })}
           />
           <ErrorMessage
@@ -81,7 +89,7 @@ const TambahUndangan = () => {
             type="text"
             id="jenis_acara"
             placeholder="Type here"
-            className="input input-bordered w-full "
+            className="w-full input input-bordered "
             {...register("jenis_acara", { required: true })}
           />
           <ErrorMessage
@@ -98,7 +106,7 @@ const TambahUndangan = () => {
             type="text"
             id="undangan_pdf"
             placeholder="Type here"
-            className="input input-bordered w-full "
+            className="w-full input input-bordered "
             {...register("undangan_pdf", {
               required: true,
             })}
