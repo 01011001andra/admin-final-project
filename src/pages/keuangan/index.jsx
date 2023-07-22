@@ -1,4 +1,5 @@
 import React from "react";
+import { Loading } from "../../components";
 import { Layout } from "../../layouts";
 import { useDeleteInfak, useGetInfak, useUpdateInfak } from "../../lib/infak";
 import { useDeleteKas, useGetKas, useUpdateKas } from "../../lib/kas";
@@ -25,20 +26,28 @@ const Keuangan = () => {
   const deleteKasMut = useDeleteKas();
   return (
     <Layout title="Keuangan & Infak">
-      <TabelKas
-        getData={kasData}
-        error={kasErr}
-        isError={kasIsErr}
-        updateMut={updateKasMut}
-        deleteMut={deleteKasMut}
-      />
-      <TabelInfak
-        getData={infakData}
-        error={infakErr}
-        isError={infakIsErr}
-        updateMut={updateInfakMut}
-        deleteMut={deleteInfakMut}
-      />
+      {kasIsLoad ? (
+        <Loading loadingName="Tabel Kas" />
+      ) : (
+        <TabelKas
+          getData={kasData}
+          error={kasErr}
+          isError={kasIsErr}
+          updateMut={updateKasMut}
+          deleteMut={deleteKasMut}
+        />
+      )}
+      {infakIsLoad ? (
+        <Loading loadingName="Tabel Layanan Infak" />
+      ) : (
+        <TabelInfak
+          getData={infakData}
+          error={infakErr}
+          isError={infakIsErr}
+          updateMut={updateInfakMut}
+          deleteMut={deleteInfakMut}
+        />
+      )}
     </Layout>
   );
 };
