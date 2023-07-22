@@ -1,10 +1,24 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { FaMosque } from "react-icons/fa";
 import { route } from "../utils/route";
 import { RiLogoutCircleRLine } from "react-icons/ri";
+import { useDispatch } from "react-redux";
+import { logout } from "../store/slices/authSlice";
+import { signOut } from "firebase/auth";
+import { auth } from "../config/firebaseConfig";
+import { successNotify } from "../utils/helper";
 
 const MainLayout = ({ children }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  async function handleLogOut() {
+    const logout2 = await signOut(auth);
+    dispatch(logout());
+    navigate("/login");
+    successNotify("Logout Berhasil");
+  }
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -61,7 +75,8 @@ const MainLayout = ({ children }) => {
               })}
             </div>
             <NavLink
-              to="/nasdf"
+              to="/login"
+              onClick={handleLogOut}
               activeClassName="active"
               className="flex text-white items-center gap-3 py-2 pl-4 rounded-[4px] hover:bg-main hover:text-stroke"
             >

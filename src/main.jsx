@@ -4,8 +4,9 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
 import { ToastContainer } from "react-toastify";
-
 import "./index.css";
+import { Provider } from "react-redux";
+import { store } from "./store";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -17,11 +18,13 @@ const queryClient = new QueryClient({
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <Router>
-        <App />
-        <ToastContainer />
-      </Router>
-    </QueryClientProvider>
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
+        <Router>
+          <App />
+          <ToastContainer />
+        </Router>
+      </QueryClientProvider>
+    </Provider>
   </React.StrictMode>
 );

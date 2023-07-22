@@ -4,14 +4,27 @@ import { useGetKas } from "../../lib/kas";
 import { TabelKas } from "../keuangan/components";
 import { Card } from "./components";
 import { Error, Loading } from "../../components";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { successNotify } from "../../utils/helper";
 
 const Dashboard = () => {
+  const { isAuthenticated } = useSelector((state) => state);
+  const navigate = useNavigate();
   const {
     data: kasData,
     isError: kasIsErr,
     error: kasErr,
     isLoading: kasIsLoad,
   } = useGetKas();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/login");
+      successNotify("Logout berhasil");
+    }
+  }, [isAuthenticated]);
 
   return (
     <Layout title="Dashboard">

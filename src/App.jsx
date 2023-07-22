@@ -1,5 +1,7 @@
 import React, { Suspense, lazy } from "react";
-import { Route, Routes } from "react-router-dom";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { Loading } from "./components";
 import { MainLayout } from "./layouts";
 
@@ -7,6 +9,7 @@ const Dashboard = lazy(() => import("./pages/dashboard"));
 const Acara = lazy(() => import("./pages/acara"));
 const Ceramah = lazy(() => import("./pages/ceramah"));
 const Keuangan = lazy(() => import("./pages/keuangan"));
+const Login = lazy(() => import("./pages/Login"));
 
 // Tambah Form Page
 const TambahUndangan = lazy(() => import("./pages/acara/TambahUndangan"));
@@ -16,20 +19,13 @@ const TambahKas = lazy(() => import("./pages/keuangan/TambahKas"));
 const TambahInfak = lazy(() => import("./pages/keuangan/TambahInfak"));
 
 const App = () => {
+  const { isAuthenticated } = useSelector((state) => state);
   return (
     <>
-      <MainLayout>
+      {!isAuthenticated ? (
         <Suspense fallback={<Loading />}>
           <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/acara" element={<Acara />} />
-            <Route path="/tambahundangan" element={<TambahUndangan />} />
-            <Route path="/tambahdokumentasi" element={<TambahDokumentasi />} />
-            <Route path="/ceramah" element={<Ceramah />} />
-            <Route path="/tambahceramah" element={<TambahCeramah />} />
-            <Route path="/keuangan" element={<Keuangan />} />
-            <Route path="/tambahkas" element={<TambahKas />} />
-            <Route path="/tambahinfak" element={<TambahInfak />} />
+            <Route path="/login" element={<Login />} />
             <Route
               path="*"
               element={
@@ -40,7 +36,39 @@ const App = () => {
             />
           </Routes>
         </Suspense>
-      </MainLayout>
+      ) : (
+        <MainLayout>
+          <Suspense fallback={<Loading />}>
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/acara" element={<Acara />} />
+              <Route path="/tambahundangan" element={<TambahUndangan />} />
+              <Route
+                path="/tambahdokumentasi"
+                element={<TambahDokumentasi />}
+              />
+              <Route path="/ceramah" element={<Ceramah />} />
+              <Route path="/tambahceramah" element={<TambahCeramah />} />
+              <Route path="/keuangan" element={<Keuangan />} />
+              <Route path="/tambahkas" element={<TambahKas />} />
+              <Route path="/tambahinfak" element={<TambahInfak />} />
+              <Route
+                path="*"
+                element={
+                  <div className="flex items-center justify-center w-full h-full">
+                    <h1 className="text-4xl font-bold">NotFound</h1>
+                  </div>
+                }
+              />
+            </Routes>
+          </Suspense>
+        </MainLayout>
+      )}
+
+      {/* <Suspense fallback={<Loading />}>
+        <Routes>
+        </Routes>
+      </Suspense> */}
     </>
   );
 };

@@ -33,6 +33,10 @@ export const successNotify = (deskripsi, id) =>
   toast.success(deskripsi, {
     toastId: id,
   });
+export const errorNotify = (deskripsi, id) =>
+  toast.error(deskripsi, {
+    toastId: id,
+  });
 
 export const randomImage = () => {
   return faker.image.city();
