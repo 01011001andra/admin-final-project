@@ -60,11 +60,7 @@ const LoginForm = () => {
         <ErrorMessage
           errors={errors}
           name="email"
-          render={({ message }) => (
-            <p className="text-red-600" key={message}>
-              {message}
-            </p>
-          )}
+          render={({ message }) => errorNotify(message, message)}
         />
       </div>
       <div className="form-control flex flex-col gap-2">
@@ -107,15 +103,13 @@ const LoginForm = () => {
             )}
           </div>
         </div>
+        
         <ErrorMessage
           errors={errors}
           name="password"
-          render={({ message }) => (
-            <p className="text-red-600 " key={message}>
-              {message}
-            </p>
-          )}
+          render={({ message }) => errorNotify(message, message)}
         />
+
       </div>
       <div className="form-control mt-6">
         <button className="btn btn-primary" type="submit">
