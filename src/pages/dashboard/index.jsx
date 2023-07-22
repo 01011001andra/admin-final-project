@@ -3,6 +3,7 @@ import { Layout } from "../../layouts";
 import { useGetKas } from "../../lib/kas";
 import { TabelKas } from "../keuangan/components";
 import { Card } from "./components";
+import { Error, Loading } from "../../components";
 
 const Dashboard = () => {
   const {
@@ -19,7 +20,12 @@ const Dashboard = () => {
         <Card title="ceramah" link="/ceramah" />
         <Card title="keuangan & e-infak" link="/keuangan" />
       </div>
-      <TabelKas getData={kasData} error={kasErr} isError={kasIsErr} />
+      {kasIsErr && <Error message={kasErr} />}
+      {kasIsLoad ? (
+        <Loading loadingName="Tabel data" />
+      ) : (
+        <TabelKas getData={kasData} error={kasErr} isError={kasIsErr} />
+      )}
     </Layout>
   );
 };
