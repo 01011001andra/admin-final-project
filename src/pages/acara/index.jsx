@@ -9,9 +9,7 @@ import {
   useUpdateDokumentasi,
   useUpdateUndangan,
 } from "../../lib";
-import TabelDokumentasi from "./components/TabelDokumentasi";
-import TableUndangan from "./components/TableUndangan";
-
+import { TabelDokumentasi, TableUndangan } from "./components";
 const Acara = () => {
   // UNDANGAN
   const {

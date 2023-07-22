@@ -7,3 +7,7 @@ kendala dalam overflow x pada tabel daisyui
 solving: mengganti tabel
 
 3.
+problem: update walaupun gagal(hook form) modalsnya ikut tertutup, tapi datanya tidak terupdate(normal)
+solving: ....
+
+4. bikin kondisi menggunakna use location agar di page tertentu, column dari tabel tidak diperlihatkan

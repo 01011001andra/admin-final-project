@@ -9,7 +9,7 @@ import {
   formatUnixToTanggal,
 } from "../../../utils/helper";
 
-const Table = (props) => {
+const TableUndangan = (props) => {
   const { getData = [], isError, error, deleteMut, updateMut } = props;
   const {
     register,
@@ -279,4 +279,4 @@ const Table = (props) => {
   );
 };
 
-export default Table;
+export default TableUndangan;
