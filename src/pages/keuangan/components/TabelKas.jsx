@@ -223,7 +223,7 @@ const TabelKas = (props) => {
             value={searchQuery}
             onChange={handleSearch}
           />
-          {!location.pathname === "/" && (
+          {location.pathname === "/" ? null : (
             <Link className="btn bg-highlight text-stroke" to="/tambahkas">
               Tambah Data
             </Link>
