@@ -14,7 +14,7 @@ export const ceramahClient = axios.create({
 });
 // keuangan
 export const keuanganClient = axios.create({
-  baseURL: import.meta.env.VITE_KEUANGAN_API,
+  baseURL: import.meta.env.VITE_LAYANAN_API,
 });
 
 export const formatTanggal = (tanggal) => {
