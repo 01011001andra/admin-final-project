@@ -1,7 +1,7 @@
 import { ErrorMessage } from "@hookform/error-message";
 import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   formatTanggal,
   formatTanggalToUnix,
@@ -9,6 +9,8 @@ import {
 } from "../../../utils/helper";
 
 const TabelKas = (props) => {
+  const location = useLocation();
+
   const { getData = [], deleteMut, updateMut, isError, error } = props;
   const cancelBtnRef = useRef(null);
   const {
@@ -71,7 +73,6 @@ const TabelKas = (props) => {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
-  console.log(reversedData);
   // Menghitung nomor awal pada setiap halaman
   const calculateStartNumber = () => {
     return (currentPage - 1) * itemsPerPage + 1;
@@ -82,125 +83,130 @@ const TabelKas = (props) => {
   return (
     <>
       {/* FORM UPDATE */}
-      <div
-        className="flex items-center justify-center w-full px-2 modal lg:px-0"
-        id="my_modal_10"
-      >
-        <div className="flex flex-col w-full gap-4 modal-box ">
-          <h3 className="text-lg font-bold">UPDATE DOKUMENTASI</h3>
-          <form
-            className="flex flex-col gap-5"
-            onSubmit={handleSubmit(handleUpdate)}
-          >
-            <div className="flex flex-col gap-2">
-              <label htmlFor="tanggal">Tanggal</label>
-              <input
-                type="date"
-                id="tanggal"
-                placeholder="Type here"
-                className="w-full input input-bordered "
-                {...register("tanggal", { required: true })}
-              />
-              <ErrorMessage
-                errors={errors}
-                name="tanggal"
-                render={({ message }) => (
-                  <p className="text-red-600">tanggal tidak boleh kosong</p>
-                )}
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <label htmlFor="keterangan">Keterangan</label>
-              <input
-                type="text"
-                id="keterangan"
-                placeholder="Type here"
-                className="w-full input input-bordered "
-                {...register("keterangan", { required: true })}
-              />
-              <ErrorMessage
-                errors={errors}
-                name="keterangan"
-                render={({ message }) => (
-                  <p className="text-red-600">keterangan tidak boleh kosong</p>
-                )}
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <label htmlFor="masuk">Masuk</label>
-              <input
-                type="text"
-                id="masuk"
-                placeholder="Type here"
-                className="w-full input input-bordered "
-                {...register("masuk", { required: true })}
-              />
-              <ErrorMessage
-                errors={errors}
-                name="masuk"
-                render={({ message }) => (
-                  <p className="text-red-600">masuk tidak boleh kosong</p>
-                )}
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <label htmlFor="keluar">Keluar</label>
-              <input
-                type="text"
-                id="keluar"
-                placeholder="Type here"
-                className="w-full input input-bordered "
-                {...register("keluar", { required: true })}
-              />
-              <ErrorMessage
-                errors={errors}
-                name="keluar"
-                render={({ message }) => (
-                  <p className="text-red-600">
-                    Judul Ceramah tidak boleh kosong
-                  </p>
-                )}
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <label htmlFor="saldo">Saldo</label>
-              <input
-                type="text"
-                id="saldo"
-                placeholder="Type here"
-                className="w-full input input-bordered "
-                {...register("saldo", { required: true })}
-              />
-              <ErrorMessage
-                errors={errors}
-                name="saldo"
-                render={({ message }) => (
-                  <p className="text-red-600">Saldo tidak boleh kosong</p>
-                )}
-              />
-            </div>
+      {/* validation for hidden in dashboard */}
+      {location.pathname === "/" ? null : (
+        <div
+          className="flex items-center justify-center w-full px-2 modal lg:px-0"
+          id="my_modal_10"
+        >
+          <div className="flex flex-col w-full gap-4 modal-box ">
+            <h3 className="text-lg font-bold">UPDATE DOKUMENTASI</h3>
+            <form
+              className="flex flex-col gap-5"
+              onSubmit={handleSubmit(handleUpdate)}
+            >
+              <div className="flex flex-col gap-2">
+                <label htmlFor="tanggal">Tanggal</label>
+                <input
+                  type="date"
+                  id="tanggal"
+                  placeholder="Type here"
+                  className="w-full input input-bordered "
+                  {...register("tanggal", { required: true })}
+                />
+                <ErrorMessage
+                  errors={errors}
+                  name="tanggal"
+                  render={({ message }) => (
+                    <p className="text-red-600">tanggal tidak boleh kosong</p>
+                  )}
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label htmlFor="keterangan">Keterangan</label>
+                <input
+                  type="text"
+                  id="keterangan"
+                  placeholder="Type here"
+                  className="w-full input input-bordered "
+                  {...register("keterangan", { required: true })}
+                />
+                <ErrorMessage
+                  errors={errors}
+                  name="keterangan"
+                  render={({ message }) => (
+                    <p className="text-red-600">
+                      keterangan tidak boleh kosong
+                    </p>
+                  )}
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label htmlFor="masuk">Masuk</label>
+                <input
+                  type="text"
+                  id="masuk"
+                  placeholder="Type here"
+                  className="w-full input input-bordered "
+                  {...register("masuk", { required: true })}
+                />
+                <ErrorMessage
+                  errors={errors}
+                  name="masuk"
+                  render={({ message }) => (
+                    <p className="text-red-600">masuk tidak boleh kosong</p>
+                  )}
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label htmlFor="keluar">Keluar</label>
+                <input
+                  type="text"
+                  id="keluar"
+                  placeholder="Type here"
+                  className="w-full input input-bordered "
+                  {...register("keluar", { required: true })}
+                />
+                <ErrorMessage
+                  errors={errors}
+                  name="keluar"
+                  render={({ message }) => (
+                    <p className="text-red-600">
+                      Judul Ceramah tidak boleh kosong
+                    </p>
+                  )}
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label htmlFor="saldo">Saldo</label>
+                <input
+                  type="text"
+                  id="saldo"
+                  placeholder="Type here"
+                  className="w-full input input-bordered "
+                  {...register("saldo", { required: true })}
+                />
+                <ErrorMessage
+                  errors={errors}
+                  name="saldo"
+                  render={({ message }) => (
+                    <p className="text-red-600">Saldo tidak boleh kosong</p>
+                  )}
+                />
+              </div>
 
-            <div className="modal-action">
-              <button
-                type="submit"
-                className="btn btn-success text-main hover:bg-success/70"
-                onClick={() => {
-                  handleCancelClick();
-                }}
-              >
-                UPDATE
-              </button>
-              <a
-                href="#"
-                className="btn btn-error text-main hover:bg-error/70"
-                ref={cancelBtnRef}
-              >
-                KEMBALI
-              </a>
-            </div>
-          </form>
+              <div className="modal-action">
+                <button
+                  type="submit"
+                  className="btn btn-success text-main hover:bg-success/70"
+                  onClick={() => {
+                    handleCancelClick();
+                  }}
+                >
+                  UPDATE
+                </button>
+                <a
+                  href="#"
+                  className="btn btn-error text-main hover:bg-error/70"
+                  ref={cancelBtnRef}
+                >
+                  KEMBALI
+                </a>
+              </div>
+            </form>
+          </div>
         </div>
-      </div>
+      )}
       {/* TABEL DOKUMENTASI */}
       <div className="flex flex-col justify-between gap-2 lg:flex-row lg:gap-4">
         <div className="flex flex-col gap-2">
@@ -217,9 +223,11 @@ const TabelKas = (props) => {
             value={searchQuery}
             onChange={handleSearch}
           />
-          <Link className="btn bg-highlight text-stroke" to="/tambahkas">
-            Tambah Data
-          </Link>
+          {!location.pathname === "/" && (
+            <Link className="btn bg-highlight text-stroke" to="/tambahkas">
+              Tambah Data
+            </Link>
+          )}
         </div>
       </div>
       <table class="min-w-full border-collapse block md:table">
@@ -243,9 +251,11 @@ const TabelKas = (props) => {
             <th class="bg-stroke p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
               SALDO
             </th>
-            <th class="bg-stroke p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
-              AKSI
-            </th>
+            {location.pathname === "/" ? null : (
+              <th class="bg-stroke p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
+                AKSI
+              </th>
+            )}
           </tr>
         </thead>
         <tbody className="flex-col-reverse block md:table-row-group">
@@ -295,31 +305,32 @@ const TabelKas = (props) => {
                   </span>
                   {item.saldo}
                 </td>
-
-                <td class="p-2 md:border md:border-grey-500 text-left  md:table-cell flex">
-                  <span class="inline-block w-1/3 md:hidden font-bold">
-                    AKSI
-                  </span>
-                  <div className="flex gap-2">
-                    <a
-                      href="#my_modal_10"
-                      className="text-white btn btn-success hover:bg-success/70"
-                      onClick={() => {
-                        handleUpdateData(item);
-                      }}
-                    >
-                      Edit
-                    </a>
-                    <button
-                      className="text-white btn btn-error hover:bg-error/70"
-                      onClick={() => {
-                        handleDelete(item.id);
-                      }}
-                    >
-                      DELETE
-                    </button>
-                  </div>
-                </td>
+                {location.pathname === "/" ? null : (
+                  <td class="p-2 md:border md:border-grey-500 text-left  md:table-cell flex">
+                    <span class="inline-block w-1/3 md:hidden font-bold">
+                      AKSI
+                    </span>
+                    <div className="flex gap-2">
+                      <a
+                        href="#my_modal_10"
+                        className="text-white btn btn-success hover:bg-success/70"
+                        onClick={() => {
+                          handleUpdateData(item);
+                        }}
+                      >
+                        Edit
+                      </a>
+                      <button
+                        className="text-white btn btn-error hover:bg-error/70"
+                        onClick={() => {
+                          handleDelete(item.id);
+                        }}
+                      >
+                        DELETE
+                      </button>
+                    </div>
+                  </td>
+                )}
               </tr>
             );
           })}
