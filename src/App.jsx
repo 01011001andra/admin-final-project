@@ -10,6 +10,7 @@ const Acara = lazy(() => import("./pages/acara"));
 const Ceramah = lazy(() => import("./pages/ceramah"));
 const Keuangan = lazy(() => import("./pages/keuangan"));
 const Login = lazy(() => import("./pages/Login"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 // Tambah Form Page
 const TambahUndangan = lazy(() => import("./pages/acara/TambahUndangan"));
@@ -26,14 +27,7 @@ const App = () => {
         <Suspense fallback={<Loading />}>
           <Routes>
             <Route path="/login" element={<Login />} />
-            <Route
-              path="*"
-              element={
-                <div className="flex items-center justify-center w-full h-full">
-                  <h1 className="text-4xl font-bold">NotFound</h1>
-                </div>
-              }
-            />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
       ) : (

@@ -26,7 +26,7 @@ const LoginForm = () => {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        dispatch(login(user.email));
+        dispatch(login(user));
         successNotify("Login Berhasil!");
         navigate("/");
       })
@@ -38,7 +38,7 @@ const LoginForm = () => {
   }
   return (
     <form onSubmit={handleSubmit(handleLogin)} autoComplete="off">
-      <div className="form-control flex flex-col gap-2 text-main">
+      <div className="flex flex-col gap-2 form-control text-main">
         <div className="flex flex-col">
           <label className="label" htmlFor="email">
             <span className="label-text text-main">Email</span>
@@ -47,7 +47,7 @@ const LoginForm = () => {
             type="text"
             id="email"
             placeholder="Type here"
-            className="w-full input input-bordered text-stroke outline-none"
+            className="w-full outline-none input input-bordered text-stroke"
             {...register("email", {
               required: "Email tidak boleh kosong",
               pattern: {
@@ -57,18 +57,20 @@ const LoginForm = () => {
             })}
           />
         </div>
-        <ErrorMessage
-          errors={errors}
-          name="email"
-          render={({ message }) => errorNotify(message, message)}
-        />
+        <div className="hidden">
+          <ErrorMessage
+            errors={errors}
+            name="email"
+            render={({ message }) => errorNotify(message, message)}
+          />
+        </div>
       </div>
-      <div className="form-control flex flex-col gap-2">
+      <div className="flex flex-col gap-2 form-control">
         <div className="flex flex-col">
           <label className="label" htmlFor="password">
             <span className="label-text text-main">Password</span>
           </label>
-          <div className="flex items-center input input-bordered w-full">
+          <div className="flex items-center w-full input input-bordered">
             <input
               type={hidePassword ? "password" : "text"}
               placeholder="password"
@@ -103,15 +105,15 @@ const LoginForm = () => {
             )}
           </div>
         </div>
-        
-        <ErrorMessage
-          errors={errors}
-          name="password"
-          render={({ message }) => errorNotify(message, message)}
-        />
-
+        <div className="hidden">
+          <ErrorMessage
+            errors={errors}
+            name="password"
+            render={({ message }) => errorNotify(message, message)}
+          />
+        </div>
       </div>
-      <div className="form-control mt-6">
+      <div className="mt-6 form-control">
         <button className="btn btn-primary" type="submit">
           Login
         </button>
