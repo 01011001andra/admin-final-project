@@ -9,8 +9,8 @@ const Dashboard = lazy(() => import("./pages/dashboard"));
 const Acara = lazy(() => import("./pages/acara"));
 const Ceramah = lazy(() => import("./pages/ceramah"));
 const Keuangan = lazy(() => import("./pages/keuangan"));
-const Login = lazy(() => import("./pages/login"));
-const NotFound = lazy(() => import("./pages/notfound"));
+const Login = lazy(() => import("./pages/Login"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 // Tambah Form Page
 const TambahUndangan = lazy(() => import("./pages/acara/TambahUndangan"));
