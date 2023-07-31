@@ -32,6 +32,20 @@ const Table = (props) => {
   }
 
   function handleCancelClick() {
+    let body = [
+      watch("tanggal"),
+      watch("waktu"),
+      watch("tempat"),
+      watch("jenis_acara"),
+      watch("undangan_pdf"),
+    ];
+
+    // Check if any value in the 'body' array is empty or null
+    if (body.some((value) => value === "" || value === null)) {
+      return null;
+    }
+
+    // If no empty values, continue with the logic
     cancelBtnRef.current.click();
   }
 
