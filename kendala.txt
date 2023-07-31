@@ -12,3 +12,4 @@ solving: ....
 
 4. bikin kondisi menggunakna use location agar di page tertentu, column dari tabel tidak diperlihatkan
 5. login page tidak bisa keluar dari routes, selalu ketemu notfound
+6. Upload ke production selalu error dengan messasge yang sama, solve dengan cara bikin project baru di vercel
