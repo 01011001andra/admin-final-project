@@ -57,6 +57,19 @@ const TabelCeramah = (props) => {
   }
 
   function handleCancelClick() {
+    const body = [
+      watch("tanggal"),
+      watch("penceramah"),
+      watch("embed"),
+      watch("judul_ceramah"),
+    ];
+
+    // Check if any value in the 'body' array is empty or null
+    if (body.some((value) => value === "" || value === null)) {
+      return null;
+    }
+
+    // If no empty values, continue with the logic
     cancelBtnRef.current.click();
   }
   const filteredData = getData?.data?.filter((item) =>
