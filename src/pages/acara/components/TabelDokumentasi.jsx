@@ -60,8 +60,26 @@ const TabelDokumentasi = (props) => {
     setCurrentPage(1);
   };
   function handleCancelClick() {
+    const body = [
+      watch("tanggal"),
+      watch("waktu"),
+      watch("tempat"),
+      watch("jenis_acara"),
+      watch("deskripsi"),
+    ];
+
+    // Check if any value in the 'body' array is empty or null
+    if (
+      body.some((value) => value === "" || value === null) ||
+      watch("gambar").length === 0
+    ) {
+      return null;
+    }
+
+    // If no empty values, continue with the logic
     cancelBtnRef.current.click();
   }
+
   const filteredData = getData?.data?.filter((item) =>
     item.jenis_acara.toLowerCase().includes(searchQuery.toLowerCase())
   );
