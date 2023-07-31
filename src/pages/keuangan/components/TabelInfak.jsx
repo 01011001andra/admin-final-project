@@ -52,6 +52,16 @@ const TabelInfak = (props) => {
   }
 
   function handleCancelClick() {
+    const body = [
+      watch("nama_infak"),
+      watch("no_rek"),
+      watch("penerima"),
+      watch("deskripsi"),
+    ];
+    // Check if any value in the 'body' array is empty or null
+    if (body.some((value) => value === "" || value === null)) {
+      return null;
+    }
     cancelBtnRef.current.click();
   }
   const filteredData = getData?.data?.filter((item) =>
