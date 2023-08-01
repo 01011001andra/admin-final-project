@@ -12,6 +12,8 @@ import { errorNotify, successNotify } from "../../../utils/helper";
 
 const LoginForm = () => {
   const [hidePassword, setHidePassword] = React.useState(true);
+  const [loadingButton, setLoadingButton] = React.useState(false);
+
   const {
     register,
     handleSubmit,
@@ -22,6 +24,7 @@ const LoginForm = () => {
   const navigate = useNavigate();
 
   function handleLogin(data) {
+    setLoadingButton(true);
     signInWithEmailAndPassword(auth, data.email, data.password)
       .then((userCredential) => {
         // Signed in
@@ -29,11 +32,13 @@ const LoginForm = () => {
         dispatch(login(user));
         successNotify("Login Berhasil!");
         navigate("/");
+        setLoadingButton(false);
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         errorNotify(errorCode);
+        setLoadingButton(false);
       });
   }
   return (
@@ -115,7 +120,7 @@ const LoginForm = () => {
       </div>
       <div className="mt-6 form-control">
         <button className="btn btn-primary" type="submit">
-          Login
+          {loadingButton ? "Tunggu sebentar..." : "Login"}
         </button>
       </div>
     </form>
