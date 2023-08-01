@@ -19,6 +19,7 @@ const TambahInfak = () => {
       no_rek: data.no_rek,
       penerima: data.penerima,
       deskripsi: data.deskripsi,
+      prioritas: data.prioritas,
     };
     postMut.mutate(body);
     navigate("/keuangan");
@@ -102,6 +103,27 @@ const TambahInfak = () => {
             name="deskripsi"
             render={({ message }) => (
               <p className="text-red-600">deskripsi tidak boleh kosong</p>
+            )}
+          />
+        </div>
+        <div className="flex flex-col gap-2">
+          <label htmlFor="prioritas">Prioritas</label>
+
+          <select
+            className="w-full select select-bordered"
+            id="prioritas"
+            {...register("prioritas", { required: true })}
+          >
+            <option disabled selected></option>
+            <option value={true}>Ya</option>
+            <option value={false}>Tidak</option>
+          </select>
+
+          <ErrorMessage
+            errors={errors}
+            name="prioritas"
+            render={({ message }) => (
+              <p className="text-red-600">prioritas tidak boleh kosong</p>
             )}
           />
         </div>
