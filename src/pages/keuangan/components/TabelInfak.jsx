@@ -30,6 +30,7 @@ const TabelInfak = (props) => {
     setValue("no_rek", body.no_rek);
     setValue("penerima", body.penerima);
     setValue("deskripsi", body.deskripsi);
+    setValue("prioritas", body.prioritas);
     setId(body.id);
   }
 
@@ -40,6 +41,7 @@ const TabelInfak = (props) => {
       no_rek: watch("no_rek"),
       penerima: watch("penerima"),
       deskripsi: watch("deskripsi"),
+      prioritas: watch("prioritas"),
     };
     updateMut.mutate(body);
   }
@@ -57,6 +59,7 @@ const TabelInfak = (props) => {
       watch("no_rek"),
       watch("penerima"),
       watch("deskripsi"),
+      watch("prioritas"),
     ];
     // Check if any value in the 'body' array is empty or null
     if (body.some((value) => value === "" || value === null)) {
@@ -171,7 +174,26 @@ const TabelInfak = (props) => {
                 )}
               />
             </div>
+            <div className="flex flex-col gap-2">
+              <label htmlFor="deskripsi">deskripsi</label>
 
+              <select
+                className="w-full select select-bordered"
+                {...register("prioritas", { required: true })}
+              >
+                <option disabled selected></option>
+                <option value={true}>Ya</option>
+                <option value={false}>Tidak</option>
+              </select>
+
+              <ErrorMessage
+                errors={errors}
+                name="prioritas"
+                render={({ message }) => (
+                  <p className="text-red-600">prioritas tidak boleh kosong</p>
+                )}
+              />
+            </div>
             <div className="modal-action">
               <button
                 type="submit"
@@ -233,6 +255,9 @@ const TabelInfak = (props) => {
               DESKRIPSI
             </th>
             <th class="bg-stroke p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
+              PRIORITAS
+            </th>
+            <th class="bg-stroke p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
               AKSI
             </th>
           </tr>
@@ -272,13 +297,19 @@ const TabelInfak = (props) => {
                   </span>
                   {item.penerima}
                 </td>
+
                 <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                   <span class="inline-block w-1/3 md:hidden font-bold">
                     DESKRIPSI
                   </span>
                   {item.deskripsi}
                 </td>
-
+                <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                  <span class="inline-block uppercase w-1/3 md:hidden font-bold">
+                    prioritas
+                  </span>
+                  {item.prioritas ? "Ya" : "Tidak"}
+                </td>
                 <td class="p-2 md:border md:border-grey-500 text-left  md:table-cell flex">
                   <span class="inline-block w-1/3 md:hidden font-bold">
                     AKSI
