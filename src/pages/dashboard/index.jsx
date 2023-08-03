@@ -10,7 +10,8 @@ import { useSelector } from "react-redux";
 import { successNotify } from "../../utils/helper";
 
 const Dashboard = () => {
-  const { isAuthenticated } = useSelector((state) => state);
+  const { accessToken } = useSelector((state) => state);
+
   const navigate = useNavigate();
   const {
     data: kasData,
@@ -19,12 +20,12 @@ const Dashboard = () => {
     isLoading: kasIsLoad,
   } = useGetKas();
 
-  useEffect(() => {
-    if (!isAuthenticated) {
+  React.useEffect(() => {
+    if (accessToken === null) {
       navigate("/login");
       successNotify("Logout berhasil");
     }
-  }, [isAuthenticated]);
+  }, [accessToken]);
 
   return (
     <Layout title="Dashboard">

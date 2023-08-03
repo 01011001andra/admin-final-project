@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { Loading } from "./components";
 import { MainLayout } from "./layouts";
+import jwtDecode from "jwt-decode";
 
 const Dashboard = lazy(() => import("./pages/dashboard"));
 const Acara = lazy(() => import("./pages/acara"));
@@ -20,18 +21,20 @@ const TambahKas = lazy(() => import("./pages/keuangan/TambahKas"));
 const TambahInfak = lazy(() => import("./pages/keuangan/TambahInfak"));
 
 const App = () => {
-  const { isAuthenticated } = useSelector((state) => state);
+  const { accessToken } = useSelector((state) => state);
+  const [isAuthenticated, setIsAuthenticated] = useState(null);
+
+  React.useEffect(() => {
+    if (accessToken) {
+      const decodedToken = jwtDecode(accessToken);
+      console.log(accessToken);
+      setIsAuthenticated(decodedToken);
+    }
+  }, [accessToken]);
   return (
     <>
-      {!isAuthenticated ? (
-        <Suspense fallback={<Loading />}>
-          <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Suspense>
-      ) : (
-        <MainLayout>
+      {isAuthenticated && isAuthenticated.email === "admin@gmail.com" ? (
+        <MainLayout setAuth={setIsAuthenticated}>
           <Suspense fallback={<Loading />}>
             <Routes>
               <Route path="/" element={<Dashboard />} />
@@ -57,6 +60,13 @@ const App = () => {
             </Routes>
           </Suspense>
         </MainLayout>
+      ) : (
+        <Suspense fallback={<Loading />}>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
       )}
 
       {/* <Suspense fallback={<Loading />}>

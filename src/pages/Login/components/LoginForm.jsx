@@ -28,7 +28,7 @@ const LoginForm = () => {
     signInWithEmailAndPassword(auth, data.email, data.password)
       .then((userCredential) => {
         // Signed in
-        const user = userCredential.user;
+        const user = userCredential.user.accessToken;
         dispatch(login(user));
         successNotify("Login Berhasil!");
         navigate("/");
