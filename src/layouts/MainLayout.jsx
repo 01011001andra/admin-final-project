@@ -9,20 +9,21 @@ import { signOut } from "firebase/auth";
 import { auth } from "../config/firebaseConfig";
 import { successNotify } from "../utils/helper";
 
-const MainLayout = ({ children }) => {
+const MainLayout = ({ children, setAuth }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   async function handleLogOut() {
     const logout2 = await signOut(auth);
-    dispatch(logout());
     navigate("/login");
+    dispatch(logout());
+    setAuth(null);
     successNotify("Logout Berhasil");
   }
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content flex flex-col">
+      <div className="flex flex-col drawer-content">
         {/* HEADER */}
         <div className="flex items-center justify-between h-36 lg:hidden">
           <div className="flex items-center gap-3 ml-4">
@@ -31,7 +32,7 @@ const MainLayout = ({ children }) => {
           </div>
           <label
             htmlFor="my-drawer-2"
-            className="btn  drawer-button rounded-none lg:hidden bg-main h-full  border-none "
+            className="h-full border-none rounded-none btn drawer-button lg:hidden bg-main "
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -54,12 +55,12 @@ const MainLayout = ({ children }) => {
       <div className="drawer-side ">
         <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
         <div className="flex flex-col px-8 w-[232px] py-[79px] h-full bg-stroke text-base-content gap-[103px]">
-          <div className="flex items-center gap-3 justify-center">
+          <div className="flex items-center justify-center gap-3">
             <FaMosque color="white" size={25} />
             <span className="font-bold text-main text-[20px]">Al-IHSAN</span>
           </div>
-          <div className="h-full flex flex-col justify-between">
-            <div className="flex flex-col  gap-6">
+          <div className="flex flex-col justify-between h-full">
+            <div className="flex flex-col gap-6">
               {route.map((item, index) => {
                 return (
                   <NavLink
