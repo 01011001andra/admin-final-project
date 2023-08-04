@@ -33,7 +33,7 @@ const App = () => {
   }, [accessToken]);
   return (
     <>
-      {isAuthenticated && isAuthenticated.email === "admin@gmail.com" ? (
+      {isAuthenticated?.email === "admin@gmail.com" ? (
         <MainLayout setAuth={setIsAuthenticated}>
           <Suspense fallback={<Loading />}>
             <Routes>
@@ -68,11 +68,6 @@ const App = () => {
           </Routes>
         </Suspense>
       )}
-
-      {/* <Suspense fallback={<Loading />}>
-        <Routes>
-        </Routes>
-      </Suspense> */}
     </>
   );
 };

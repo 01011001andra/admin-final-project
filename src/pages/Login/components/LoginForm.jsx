@@ -120,7 +120,11 @@ const LoginForm = () => {
       </div>
       <div className="mt-6 form-control">
         <button className="btn btn-primary" type="submit">
-          {loadingButton ? "Tunggu sebentar..." : "Login"}
+          {loadingButton ? (
+            <span className="loading loading-spinner loading-lg"></span>
+          ) : (
+            "Login"
+          )}
         </button>
       </div>
     </form>
